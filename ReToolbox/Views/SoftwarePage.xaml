@@ -86,6 +86,11 @@
                         BorderThickness="1"
                         CornerRadius="6"
                         ItemsSource="{x:Bind ViewModel.InstallLogs}">
+                        <ListView.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="CopyAllLogs_Click" Text="复制全部日志" />
+                            </MenuFlyout>
+                        </ListView.ContextFlyout>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="x:String">
                                 <TextBlock

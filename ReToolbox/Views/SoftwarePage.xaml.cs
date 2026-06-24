@@ -168,5 +168,13 @@ namespace ReToolbox.Views
                 InstallLogListView.ScrollIntoView(ViewModel.InstallLogs[^1]);
             }
         }
+
+        private void CopyAllLogs_Click(object sender, RoutedEventArgs e)
+        {
+            string text = string.Join(Environment.NewLine, ViewModel.InstallLogs);
+            var package = new Windows.ApplicationModel.DataTransfer.DataPackage();
+            package.SetText(text);
+            Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(package);
+        }
     }
 }
