@@ -30,21 +30,16 @@
                 <StackPanel
                     Margin="50,0,0,0"
                     VerticalAlignment="Center"
-                    Orientation="Vertical"
-                    Spacing="6">
+                    Orientation="Vertical">
                     <TextBlock
                         FontSize="18"
                         Foreground="White"
-                        Text="ReToolbox 重装工具箱" />
+                        Text="ReToolbox 重来工具箱" />
                     <TextBlock
                         FontSize="46"
                         FontWeight="SemiBold"
                         Foreground="White"
                         Text="主页" />
-                    <TextBlock
-                        FontSize="14"
-                        Foreground="#CCFFFFFF"
-                        Text="{x:Bind ViewModel.SystemSummary, Mode=OneWay}" />
                 </StackPanel>
 
                 <controls:TileGallery
@@ -102,17 +97,6 @@
                         <FontIcon Glyph="&#xE774;" />
                     </controls1:SettingsCard.HeaderIcon>
                     <Button Click="NavigateToEdgeRemover" Content="前往" Style="{StaticResource AccentButtonStyle}" />
-                </controls1:SettingsCard>
-
-                <controls1:SettingsCard
-                    Margin="24,0,24,0"
-                    Description="查看 CPU、内存、磁盘空间与系统运行状态"
-                    Header="系统信息"
-                    Style="{StaticResource ConfigurationSettingsCardTemplate}">
-                    <controls1:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE770;" />
-                    </controls1:SettingsCard.HeaderIcon>
-                    <Button Click="NavigateToSystemInfo" Content="前往" Style="{StaticResource AccentButtonStyle}" />
                 </controls1:SettingsCard>
             </StackPanel>
         </Grid>

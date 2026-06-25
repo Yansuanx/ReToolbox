@@ -32,20 +32,4 @@
         <Setter Property="Margin" Value="0,24,0,24" />
     </Style>
 
-    <Style
-        x:Key="AtlasLikeSettingsCardTemplate"
-        BasedOn="{StaticResource ConfigurationSettingsCardTemplate}"
-        TargetType="controls:SettingsCard">
-        <Setter Property="Margin" Value="0,0,36,10" />
-        <Setter Property="MinHeight" Value="80" />
-        <Setter Property="BorderBrush" Value="#0DFFFFFF" />
-        <Setter Property="CornerRadius" Value="12" />
-    </Style>
-
-    <Style x:Key="SettingsCategoryTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Margin" Value="0,0,0,10" />
-    </Style>
-
 </ResourceDictionary>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page
-    x:Class="ReToolbox.Views.EdgeRemoverPage"
+    x:Class="ReToolbox.Views.DefenderPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
@@ -35,7 +35,7 @@
         <TextBlock
             Margin="0,24,0,8"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="管理 Edge" />
+            Text="管理 Defender" />
 
         <ScrollViewer Grid.Row="1">
             <StackPanel>
@@ -49,7 +49,7 @@
                         Width="78"
                         Height="78"
                         Margin="0,0,22,0"
-                        Source="ms-appx:///Assets/EdgeIcon.ico" />
+                        Source="ms-appx:///Assets/DefenderIcon.ico" />
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="10">
                         <TextBlock
@@ -83,31 +83,31 @@
                 </Grid>
 
                 <controls:SettingsCard
-                    x:Name="UninstallCard"
+                    x:Name="RemoveCard"
                     Style="{StaticResource AtlasLikeSettingsCardTemplate}"
-                    Description="安装或卸载 Microsoft Edge 浏览器（系统级）"
-                    Header="管理 Microsoft Edge">
+                    Description="移除或禁用 Windows Defender（含杀毒、SmartScreen、安全中心等），操作不可逆且会强制重启"
+                    Header="移除 Windows Defender">
                     <controls:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE74D;" />
                     </controls:SettingsCard.HeaderIcon>
                     <Button
                         x:Name="PrimaryActionButton"
                         Click="PrimaryAction_Click"
-                        Content="安装 Edge" />
+                        Content="移除 Defender" />
                 </controls:SettingsCard>
 
                 <controls:SettingsCard
                     Style="{StaticResource AtlasLikeSettingsCardTemplate}"
-                    Description="清理 Edge 卸载后的残留注册表项和快捷方式"
-                    Header="清理残留">
+                    Description="打开 Windows 安全中心查看当前防护状态"
+                    Header="打开 Windows 安全中心">
                     <controls:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE946;" />
+                        <FontIcon Glyph="&#xE718;" />
                     </controls:SettingsCard.HeaderIcon>
-                    <Button Click="Cleanup_Click" Content="清理" />
+                    <Button Click="OpenSecurity_Click" Content="打开" />
                 </controls:SettingsCard>
 
                 <ProgressBar
-                    x:Name="UninstallProgress"
+                    x:Name="RemoveProgress"
                     Margin="0,6,36,12"
                     IsIndeterminate="True"
                     Visibility="Collapsed" />

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -19,13 +21,6 @@ namespace ReToolbox.Views
 
             InitializeComponent();
             BuildSoftwareList();
-            Loaded += SoftwarePage_Loaded;
-        }
-
-        private async void SoftwarePage_Loaded(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.RefreshInstalledStatusAsync();
-            RefreshCheckBoxes();
         }
 
         private void BuildSoftwareList()
@@ -34,6 +29,7 @@ namespace ReToolbox.Views
             Style? categoryTitleStyle = TryGetAppStyle("CategoryTitleStyle");
             SoftwareListPanel.Children.Clear();
 
+            // GroupBy preserves first-appearance order, matching the order defined in GetDefaultSoftwareList().
             foreach (var group in ViewModel.SoftwareItems.GroupBy(item => item.Category))
             {
                 var categoryTitle = new TextBlock
@@ -48,7 +44,6 @@ namespace ReToolbox.Views
                     var card = new CommunityToolkit.WinUI.Controls.SettingsCard
                     {
                         Header = item.Name,
-                        Description = item.Description,
                         DataContext = item,
                         HorizontalContentAlignment = HorizontalAlignment.Right
                     };
@@ -108,9 +103,6 @@ namespace ReToolbox.Views
                     cb.DataContext is SoftwareItem item)
                 {
                     cb.IsChecked = item.IsSelected;
-                    card.Description = string.IsNullOrWhiteSpace(item.InstallStatus)
-                        ? item.Description
-                        : $"{item.Description} · {item.InstallStatus}";
                 }
             }
         }
@@ -120,7 +112,6 @@ namespace ReToolbox.Views
             if (sender is CheckBox checkBox && checkBox.DataContext is SoftwareItem item)
             {
                 item.IsSelected = true;
-                ViewModel.UpdateSelectionSummary();
             }
         }
 
@@ -129,45 +120,61 @@ namespace ReToolbox.Views
             if (sender is CheckBox checkBox && checkBox.DataContext is SoftwareItem item)
             {
                 item.IsSelected = false;
-                ViewModel.UpdateSelectionSummary();
             }
-        }
-
-        private void SelectAll_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.SelectAllCommand.Execute(null);
-            RefreshCheckBoxes();
-        }
-
-        private void DeselectAll_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.DeselectAllCommand.Execute(null);
-            RefreshCheckBoxes();
         }
 
         private async void InstallSelected_Click(object sender, RoutedEventArgs e)
         {
             if (!ViewModel.SoftwareItems.Any(item => item.IsSelected))
             {
-                ShowStatus("请至少选择一个软件", InfoBarSeverity.Warning);
                 return;
             }
 
-            ProgressRingStackPanel.Visibility = Visibility.Visible;
+            // Open a modal progress dialog for the whole batch.
+            InstallProgressDialog.Title = "正在安装软件";
+            InstallProgressDialog.CloseButtonText = null; // no dismiss while running
+            InstallProgressDialog.XamlRoot = this.XamlRoot;
 
-            await ViewModel.InstallSelectedCommand.ExecuteAsync(null);
+            ViewModel.InstallLogs.CollectionChanged += InstallLogs_CollectionChanged;
 
-            ProgressRingStackPanel.Visibility = Visibility.Collapsed;
+            // Show without awaiting; the dialog stays open while the install runs and
+            // progress reports keep its bindings (progress bars + log list) updated.
+            var showOperation = InstallProgressDialog.ShowAsync();
+
+            try
+            {
+                await ViewModel.InstallSelectedCommand.ExecuteAsync(null);
+                InstallProgressDialog.Title = "安装完成";
+            }
+            catch
+            {
+                InstallProgressDialog.Title = "安装出错";
+            }
+            finally
+            {
+                InstallProgressDialog.CloseButtonText = "关闭";
+            }
+
+            await showOperation;
+
+            ViewModel.InstallLogs.CollectionChanged -= InstallLogs_CollectionChanged;
             RefreshCheckBoxes();
-            ViewModel.UpdateSelectionSummary();
-            ShowStatus(ViewModel.StatusText, InfoBarSeverity.Success);
         }
 
-        private void ShowStatus(string message, InfoBarSeverity severity)
+        private void InstallLogs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            StatusInfoBar.Message = message;
-            StatusInfoBar.Severity = severity;
-            StatusInfoBar.IsOpen = true;
+            if (ViewModel.InstallLogs.Count > 0)
+            {
+                InstallLogListView.ScrollIntoView(ViewModel.InstallLogs[^1]);
+            }
+        }
+
+        private void CopyAllLogs_Click(object sender, RoutedEventArgs e)
+        {
+            string text = string.Join(Environment.NewLine, ViewModel.InstallLogs);
+            var package = new Windows.ApplicationModel.DataTransfer.DataPackage();
+            package.SetText(text);
+            Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(package);
         }
     }
 }

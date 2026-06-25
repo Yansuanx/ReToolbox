@@ -73,27 +73,10 @@ namespace ReToolbox
         }
         public void NavigateTo(string pageTag)
         {
-            Type? pageType = Type.GetType(pageTag);
-            if (pageType == null)
+            Type pageType = Type.GetType(pageTag);
+            if (pageType != null)
             {
-                return;
-            }
-
-            ContentFrame.Navigate(pageType);
-
-            if (pageType == typeof(Views.SettingsPage))
-            {
-                NavigationViewControl.SelectedItem = NavigationViewControl.SettingsItem;
-                return;
-            }
-
-            var item = NavigationViewControl.MenuItems
-                .OfType<NavigationViewItem>()
-                .FirstOrDefault(n => n.Tag?.ToString() == pageTag);
-
-            if (item != null)
-            {
-                NavigationViewControl.SelectedItem = item;
+                ContentFrame.Navigate(pageType);
             }
         }
     }

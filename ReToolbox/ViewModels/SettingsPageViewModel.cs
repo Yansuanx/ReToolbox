@@ -15,7 +15,7 @@ namespace ReToolbox.ViewModels
         private string _description = "Windows 重装后一键配置工具";
 
         [ObservableProperty]
-        private string _githubLink = "https://github.com/bileizhen/ReToolbox";
+        private string _githubLink = "https://github.com";
 
         public SettingsPageViewModel()
         {

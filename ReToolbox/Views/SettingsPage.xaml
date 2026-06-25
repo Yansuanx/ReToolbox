@@ -8,6 +8,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style
+            x:Key="AtlasLikeSettingsCardTemplate"
+            BasedOn="{StaticResource ConfigurationSettingsCardTemplate}"
+            TargetType="controls:SettingsCard">
+            <Setter Property="Margin" Value="0,0,36,10" />
+            <Setter Property="MinHeight" Value="80" />
+            <Setter Property="BorderBrush" Value="#0DFFFFFF" />
+            <Setter Property="CornerRadius" Value="12" />
+        </Style>
+
+        <Style x:Key="CategoryTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+    </Page.Resources>
+
     <ScrollViewer>
         <StackPanel Margin="55,0,0,0">
             <TextBlock
@@ -15,10 +33,10 @@
                 Style="{StaticResource TitleTextBlockStyle}"
                 Text="设置" />
 
-            <TextBlock Style="{StaticResource SettingsCategoryTitleStyle}" Text="应用" />
+            <TextBlock Style="{StaticResource CategoryTitle}" Text="应用" />
             <controls:SettingsCard
                 Style="{StaticResource AtlasLikeSettingsCardTemplate}"
-                Description="{x:Bind ViewModel.Description, Mode=OneWay}"
+                Description="ReToolbox - Windows 重装后一键配置工具"
                 Header="关于">
                 <controls:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE946;" />
@@ -31,20 +49,10 @@
                 <controls:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE946;" />
                 </controls:SettingsCard.HeaderIcon>
-                <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Version, Mode=OneWay}" />
+                <TextBlock VerticalAlignment="Center" Text="v1.0.0" />
             </controls:SettingsCard>
 
-            <controls:SettingsCard
-                Style="{StaticResource AtlasLikeSettingsCardTemplate}"
-                Description="查看源代码、提交 Issue 或参与贡献"
-                Header="GitHub">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8A7;" />
-                </controls:SettingsCard.HeaderIcon>
-                <HyperlinkButton Content="打开仓库" NavigateUri="{x:Bind ViewModel.GithubLink, Mode=OneWay}" />
-            </controls:SettingsCard>
-
-            <TextBlock Style="{StaticResource SettingsCategoryTitleStyle}" Text="技术信息" />
+            <TextBlock Style="{StaticResource CategoryTitle}" Text="技术信息" />
             <controls:SettingsCard
                 Style="{StaticResource AtlasLikeSettingsCardTemplate}"
                 Description="基于 WinUI 3 / Windows App SDK 构建"
@@ -56,7 +64,7 @@
 
             <controls:SettingsCard
                 Style="{StaticResource AtlasLikeSettingsCardTemplate}"
-                Description="此工具仅供学习和个人使用，部分功能需要管理员权限"
+                Description="此工具仅供学习和个人使用"
                 Header="免责声明">
                 <controls:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE7BA;" />

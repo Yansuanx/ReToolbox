@@ -23,15 +23,14 @@ namespace ReToolbox
                     services.AddSingleton<ActivationService>();
                     services.AddSingleton<WindowsUpdateService>();
                     services.AddSingleton<EdgeRemoverService>();
-                    services.AddSingleton<SystemInfoService>();
+                    services.AddSingleton<DefenderService>();
 
-                    services.AddTransient<HomePageViewModel>();
                     services.AddTransient<SoftwarePageViewModel>();
                     services.AddTransient<ActivationPageViewModel>();
                     services.AddTransient<WindowsUpdatePageViewModel>();
                     services.AddTransient<EdgeRemoverPageViewModel>();
+                    services.AddTransient<DefenderPageViewModel>();
                     services.AddTransient<SettingsPageViewModel>();
-                    services.AddTransient<SystemInfoPageViewModel>();
                 })
                 .Build();
 

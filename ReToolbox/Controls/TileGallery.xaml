@@ -65,16 +65,6 @@
                     </local:HeaderTile>
 
                     <local:HeaderTile
-                        Title="系统信息"
-                        Description="查看 CPU、内存与磁盘状态"
-                        NavigationRequested="HeaderTile_NavigationRequested"
-                        TargetPage="SystemInfoPage">
-                        <local:HeaderTile.Source>
-                            <FontIcon FontSize="54" Glyph="&#xE770;" />
-                        </local:HeaderTile.Source>
-                    </local:HeaderTile>
-
-                    <local:HeaderTile
                         Title="管理更新"
                         Description="控制 Windows Update"
                         NavigationRequested="HeaderTile_NavigationRequested"

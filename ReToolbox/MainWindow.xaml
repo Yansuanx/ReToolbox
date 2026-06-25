@@ -44,6 +44,7 @@
             x:Name="NavigationViewControl"
             Grid.RowSpan="2"
             Grid.Column="1"
+            OpenPaneLength="200"
             AlwaysShowHeader="False"
             BackRequested="NavigationViewControl_BackRequested"
             IsPaneToggleButtonVisible="True"
@@ -89,10 +90,9 @@
                         <FontIcon Glyph="&#xE774;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItemSeparator />
-                <NavigationViewItem x:Name="SystemInfo" Content="系统信息" Tag="ReToolbox.Views.SystemInfoPage">
+                <NavigationViewItem x:Name="Defender" Content="管理 Defender" Tag="ReToolbox.Views.DefenderPage">
                     <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE770;" />
+                        <FontIcon Glyph="&#xE718;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>

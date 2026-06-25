@@ -30,7 +30,6 @@ ReToolbox 是一款使用 **WinUI 3 + .NET 8** 开发的 Windows 桌面应用，
 - 🔄 **管理更新** —— 管理 Windows 更新
 - 🔑 **系统激活** —— 系统激活相关工具
 - 🌐 **管理 Edge** —— 管理微软 Edge 浏览器
-- 💻 **系统信息** —— 查看 CPU、内存、磁盘与运行状态
 
 ### 下载与安装
 
@@ -84,7 +83,6 @@ ReToolbox is a Windows desktop application built with **WinUI 3 + .NET 8**. It s
 - 🔄 **Windows Update** — manage Windows updates
 - 🔑 **Activation** — system activation utilities
 - 🌐 **Edge** — manage the Microsoft Edge browser
-- 💻 **System Info** — view CPU, memory, disk space, and uptime
 
 ### Download & Install
 

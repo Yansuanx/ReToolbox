@@ -8,6 +8,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style
+            x:Key="AtlasLikeSettingsCardTemplate"
+            BasedOn="{StaticResource ConfigurationSettingsCardTemplate}"
+            TargetType="controls:SettingsCard">
+            <Setter Property="Margin" Value="0,0,36,10" />
+            <Setter Property="MinHeight" Value="80" />
+            <Setter Property="BorderBrush" Value="#0DFFFFFF" />
+            <Setter Property="CornerRadius" Value="12" />
+        </Style>
+
+    </Page.Resources>
+
     <Grid Margin="55,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
