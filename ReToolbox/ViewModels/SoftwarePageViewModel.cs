@@ -77,8 +77,20 @@ namespace ReToolbox.ViewModels
                                 !string.IsNullOrWhiteSpace(item.DownloadUrl);
                 DownloadProgress = 0;
 
-                var log = new Progress<string>(message =>
-                    InstallLogs.Add($"[{DateTime.Now:HH:mm:ss}] {message}"));
+                var log = new Progress<LogEntry>(entry =>
+                {
+                    string line = $"[{DateTime.Now:HH:mm:ss}] {entry.Text}";
+                    // A Progress entry (winget bar redraw / download chunk) refreshes
+                    // the last line in place instead of scrolling a new row in.
+                    if (entry.Kind == LogEntryKind.Progress && InstallLogs.Count > 0)
+                    {
+                        InstallLogs[InstallLogs.Count - 1] = line;
+                    }
+                    else
+                    {
+                        InstallLogs.Add(line);
+                    }
+                });
 
                 var download = new Progress<int>(percent =>
                 {

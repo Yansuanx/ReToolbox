@@ -36,6 +36,33 @@
             <TextBlock Style="{StaticResource CategoryTitle}" Text="应用" />
             <controls:SettingsCard
                 Style="{StaticResource AtlasLikeSettingsCardTemplate}"
+                Description="下载 GitHub 资源时自动尝试镜像加速，失败自动切换"
+                Header="GitHub 镜像加速">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE774;" />
+                </controls:SettingsCard.HeaderIcon>
+                <ToggleSwitch
+                    IsOn="{x:Bind ViewModel.IsGitHubMirrorEnabled, Mode=TwoWay}" />
+            </controls:SettingsCard>
+
+            <controls:SettingsCard
+                Style="{StaticResource AtlasLikeSettingsCardTemplate}"
+                Description="可从预设选择或输入自定义镜像地址，留空则自动尝试"
+                Header="下载镜像"
+                IsEnabled="{x:Bind ViewModel.IsGitHubMirrorEnabled, Mode=OneWay}">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE896;" />
+                </controls:SettingsCard.HeaderIcon>
+                <ComboBox
+                    IsEditable="True"
+                    ItemsSource="{x:Bind ViewModel.MirrorPresets, Mode=OneWay}"
+                    Text="{x:Bind ViewModel.SelectedMirror, Mode=TwoWay}"
+                    PlaceholderText="自动（留空则按顺序自动尝试）"
+                    MinWidth="280" />
+            </controls:SettingsCard>
+
+            <controls:SettingsCard
+                Style="{StaticResource AtlasLikeSettingsCardTemplate}"
                 Description="ReToolbox - Windows 重装后一键配置工具"
                 Header="关于">
                 <controls:SettingsCard.HeaderIcon>

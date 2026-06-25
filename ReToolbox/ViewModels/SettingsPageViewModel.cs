@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
+using ReToolbox.Utils;
 
 namespace ReToolbox.ViewModels
 {
@@ -16,6 +19,42 @@ namespace ReToolbox.ViewModels
 
         [ObservableProperty]
         private string _githubLink = "https://github.com";
+
+        // Mirror acceleration is persisted in the registry (HKLM\SOFTWARE\ReToolbox);
+        // the getter re-reads it so the toggle reflects whatever the service layer sees.
+        private bool _isGitHubMirrorEnabled = GitHubMirrorHelper.IsEnabled;
+
+        public bool IsGitHubMirrorEnabled
+        {
+            get => _isGitHubMirrorEnabled;
+            set
+            {
+                if (SetProperty(ref _isGitHubMirrorEnabled, value))
+                {
+                    GitHubMirrorHelper.IsEnabled = value;
+                }
+            }
+        }
+
+        // Which mirror to try first; empty = auto (preset order). The user can pick a
+        // preset from the dropdown or type a custom mirror URL. Persisted in the
+        // registry alongside the enable flag, and normalized there too.
+        private string _selectedMirror = GitHubMirrorHelper.SelectedMirror;
+
+        public string SelectedMirror
+        {
+            get => _selectedMirror;
+            set
+            {
+                if (SetProperty(ref _selectedMirror, value))
+                {
+                    GitHubMirrorHelper.SelectedMirror = value;
+                }
+            }
+        }
+
+        // Preset mirror URLs offered in the settings dropdown.
+        public List<string> MirrorPresets => GitHubMirrorHelper.Mirrors.ToList();
 
         public SettingsPageViewModel()
         {
