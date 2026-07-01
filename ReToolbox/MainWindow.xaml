@@ -27,18 +27,20 @@
             VerticalAlignment="Top"
             Background="Transparent"
             Canvas.ZIndex="1">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Image
-                    Width="18"
-                    Margin="12,0,12,0"
-                    VerticalAlignment="Center"
-                    Source="ms-appx:///Assets/Logo/toolbox-icon.ico" />
-                <TextBlock
-                    x:Name="AppTitle"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="ReToolbox" />
-            </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image
+                        Width="18"
+                        Margin="12,0,12,0"
+                        VerticalAlignment="Center"
+                        Source="ms-appx:///Assets/Logo/toolbox-icon.ico" />
+                    <TextBlock
+                        x:Name="AppTitle"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="ReToolbox" />
+                </StackPanel>
+            </Grid>
         </Border>
         <NavigationView
             x:Name="NavigationViewControl"
@@ -69,6 +71,16 @@
                     Icon="Home"
                     Content="主页"
                     Tag="ReToolbox.Views.HomePage" />
+                <NavigationViewItem x:Name="SystemInfo" Content="系统信息" Tag="ReToolbox.Views.SystemInfoPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE950;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="Memory" Content="内存管理" Tag="ReToolbox.Views.MemoryPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE964;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem x:Name="Software" Content="软件安装" Tag="ReToolbox.Views.SoftwarePage">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE896;" />
@@ -96,6 +108,25 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem
+                    x:Name="ThemeToggle"
+                    SelectsOnInvoked="False"
+                    Tapped="ThemeToggle_Tapped"
+                    Content="深色模式"
+                    ToolTipService.ToolTip="切换明暗主题">
+                    <NavigationViewItem.Icon>
+                        <FontIcon
+                            x:Name="ThemeIcon"
+                            Glyph="&#xE793;"
+                            RenderTransformOrigin="0.5,0.5">
+                            <FontIcon.RenderTransform>
+                                <RotateTransform x:Name="ThemeIconRotate" Angle="0" />
+                            </FontIcon.RenderTransform>
+                        </FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
         </NavigationView>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="TitleBarStates">
